@@ -12,6 +12,8 @@ namespace WebAPi6.Models
         [Required]
         public string Description { get; set; }
         [Required]
+        public float Price { get; set; }
+        [Required]
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         [Required]
@@ -20,6 +22,8 @@ namespace WebAPi6.Models
         //[Required]
         [ForeignKey("Restaurant")]
         public int RestaurantId { get; set; }
+        [ForeignKey("Restaurant")]
+        public string RestaurantName { get; set; } = string.Empty;
 
     }
 }

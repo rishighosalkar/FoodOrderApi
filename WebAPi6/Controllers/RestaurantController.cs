@@ -35,5 +35,13 @@ namespace WebAPi6.Controllers
         {
             return await _restaurant.AddRestaurantMeal(username, meal);
         }
+
+        [HttpGet]
+        [Route("getRestaurantNameById")]
+        public async Task<IActionResult> GetRestaurantNameById(int id)
+        {
+            return await _restaurant.GetRestaurantNameById(id);
+        }
+
     }
 }

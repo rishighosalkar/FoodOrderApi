@@ -9,5 +9,6 @@ namespace WebAPi6.Services
         public Task<IActionResult> AddRestaurantMeal(string username, Meal meal);
         public Task<IActionResult> GetRestaurantDetails(string username, string password);
         public Task<List<Restaurant>> GetAllRestaurants();
+        public Task<IActionResult> GetRestaurantNameById(int id);
     }
 }

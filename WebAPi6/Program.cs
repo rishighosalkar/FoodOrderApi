@@ -22,7 +22,7 @@ builder.Services.AddScoped<ITokenGenerator, TokenGeneratorImp>();
 
 builder.Services.AddScoped<IUser, UserImp>();
 builder.Services.AddScoped<IRestaurant, RestaurantImp>();
-
+builder.Services.AddScoped<IMeal, MealImp>();
 
 
 builder.Services.Configure<TokenParams>(builder.Configuration.GetSection("JSONWebTokenPramas"));

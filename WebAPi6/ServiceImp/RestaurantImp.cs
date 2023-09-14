@@ -67,6 +67,11 @@ namespace WebAPi6.ServiceImp
                 });
             }
 
+            foreach(var meal in restaurant.RestaurantMeals)
+            {
+                meal.RestaurantName = restaurant.RestaurantName;
+            }
+
             await _dbContext.AddAsync(restaurant);
 
             await _dbContext.SaveChangesAsync();
@@ -78,5 +83,27 @@ namespace WebAPi6.ServiceImp
                 username = restaurant.RestaurantUsername
             });
         }
+
+        public async Task<IActionResult> GetRestaurantNameById(int id)
+        {
+            Restaurant restaurant = await _dbContext.Restaurants.FirstOrDefaultAsync(x => x.RestaurantId == id);
+            if(restaurant == null)
+            {
+                return new JsonResult(new
+                {
+                    statusCode = 404,
+                    message = "Restaurant not found"
+                });
+            }
+
+            return Ok(new
+            {
+                statusCode = 200,
+                message = "Restaurant details",
+                restaurantName = restaurant.RestaurantName
+            });
+        }
+
+
     }
 }
