@@ -31,5 +31,26 @@ namespace WebAPi6.ServiceImp
                 meals = meals 
             }) ;
         }
+
+        public async Task<IActionResult> GetMealsByRestaurantId(int restaurantId)
+        {
+            var meals = await _foodOrderDBContext.Meals.Where(x => x.RestaurantId == restaurantId).ToListAsync();
+            
+            if (meals == null)
+            {
+                return new JsonResult(new
+                {
+                    statusCode = 500,
+                    message = "Unable to get meals for restaurant",
+                });
+            }
+
+            return Ok(new
+            {
+                statusCode = 200,
+                message = "Meals retrieved",
+                meals = meals
+            });
+        }
     }
 }
