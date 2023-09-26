@@ -60,7 +60,7 @@ namespace WebAPi6.ServiceImp
             
             if(chkExistingRestaurant != null)
             {
-                return BadRequest(new
+                return new JsonResult(new
                 {
                     statusCode = 409,
                     message = "Restaurant already exist"

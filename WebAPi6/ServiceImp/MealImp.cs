@@ -14,6 +14,12 @@ namespace WebAPi6.ServiceImp
         {
             _foodOrderDBContext = foodOrderDBContext;
         }
+
+        public Task<IActionResult> AddMeals(Meal meal)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IActionResult> GetMeals()
         {
             var meals = await _foodOrderDBContext.Meals.ToListAsync();

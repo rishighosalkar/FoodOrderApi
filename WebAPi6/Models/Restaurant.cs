@@ -10,6 +10,10 @@ namespace WebAPi6.Models
         [Required]
         public string RestaurantUsername { get; set; }
         [Required]
+        public string RestaurantEmail { get; set; }
+        [Required]
+        public string RestaurantPhone { get; set; }
+        [Required]
         [MinLength(8)]
         public string RestaurantPassword { get; set; }
         [Required]
