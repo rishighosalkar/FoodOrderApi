@@ -19,6 +19,7 @@ namespace WebAPi6.Models
         public string Phone { get; set; } = string.Empty;
         [Required]
         public UserAddress Address { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }

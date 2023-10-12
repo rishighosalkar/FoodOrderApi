@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPi6.Context;
 
@@ -11,9 +12,11 @@ using WebAPi6.Context;
 namespace WebAPi6.Migrations
 {
     [DbContext(typeof(FoodOrderDBContext))]
-    partial class FoodOrderDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231004060543_AddedOrders")]
+    partial class AddedOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,6 +89,9 @@ namespace WebAPi6.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -108,13 +114,10 @@ namespace WebAPi6.Migrations
                     b.Property<int>("TotalAmount")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("MealId")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -303,17 +306,9 @@ namespace WebAPi6.Migrations
 
             modelBuilder.Entity("WebAPi6.Models.Order", b =>
                 {
-                    b.HasOne("WebAPi6.Models.Meal", null)
-                        .WithOne("Order")
-                        .HasForeignKey("WebAPi6.Models.Order", "MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebAPi6.Models.User", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebAPi6.Models.RestaurantAddress", b =>
@@ -328,12 +323,6 @@ namespace WebAPi6.Migrations
                     b.HasOne("WebAPi6.Models.User", null)
                         .WithOne("Address")
                         .HasForeignKey("WebAPi6.Models.UserAddress", "UserId");
-                });
-
-            modelBuilder.Entity("WebAPi6.Models.Meal", b =>
-                {
-                    b.Navigation("Order")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebAPi6.Models.Restaurant", b =>

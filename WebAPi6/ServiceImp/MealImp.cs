@@ -15,9 +15,27 @@ namespace WebAPi6.ServiceImp
             _foodOrderDBContext = foodOrderDBContext;
         }
 
-        public Task<IActionResult> AddMeals(Meal meal)
+        public async Task<IActionResult> AddMeals(Meal meal)
         {
-            throw new NotImplementedException();
+            var chkExistingMeal = _foodOrderDBContext.Meals.FirstOrDefault(x => x.Name == meal.Name && x.RestaurantId == meal.RestaurantId);
+            if (chkExistingMeal != null)
+            {
+                return new JsonResult(new
+                {
+                    statusCode = 409,
+                    message = "Meal with name " + meal.Name + "already exist"
+                });
+            }
+
+            await _foodOrderDBContext.Meals.AddAsync(meal);
+            var result = await _foodOrderDBContext.SaveChangesAsync();
+
+            return new JsonResult(new
+            {
+                StatusCode = 200,
+                message = "Meal successfully added",
+                meal = meal
+            });
         }
 
         public async Task<IActionResult> GetMeals()

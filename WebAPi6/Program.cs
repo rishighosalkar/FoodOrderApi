@@ -24,6 +24,7 @@ builder.Services.AddScoped<IUser, UserImp>();
 builder.Services.AddScoped<IRestaurant, RestaurantImp>();
 builder.Services.AddScoped<IMeal, MealImp>();
 builder.Services.AddScoped<IMealSubcategory, MealSubcategoryImp>();
+builder.Services.AddScoped<IOrder, OrderImp>();
 
 
 builder.Services.Configure<TokenParams>(builder.Configuration.GetSection("JSONWebTokenPramas"));

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebAPi6.Helpers;
 using WebAPi6.Models;
 using WebAPi6.Services;
 
@@ -17,7 +18,7 @@ namespace WebAPi6.Controllers
 
         [HttpGet]
         [Route("getRestaurantList")]
-        public async Task<List<Restaurant>> GetAllRestaurants()
+        public async Task<IActionResult> GetAllRestaurants()
         {
             return await _restaurant.GetAllRestaurants();
         }
@@ -27,6 +28,20 @@ namespace WebAPi6.Controllers
         public async Task<IActionResult> RegisterRestaurant([FromBody] Restaurant restaurant)
         {
             return await _restaurant.RegisterRestaurant(restaurant);
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
+        {
+            string email = loginModel.Email;
+            string password = loginModel.Password;
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentNullException("email");
+            }
+
+            return await _restaurant.Login(email, password);
         }
 
         [HttpPost]

@@ -28,5 +28,12 @@ namespace WebAPi6.Controllers
         {
             return await _meals.GetMealsByRestaurantId(restaurantId);
         }
+
+        [HttpPost]
+        [Route("add-meal")]
+        public async Task<IActionResult> AddMeal(Meal meal)
+        {
+            return await _meals.AddMeals(meal);
+        }
     }
 }
