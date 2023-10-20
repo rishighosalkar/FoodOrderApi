@@ -99,13 +99,13 @@ namespace WebAPi6.ServiceImp
             {
                 return NotFound(new
                 {
-                    status = 404,
+                    statusCode = 404,
                     message = "User not found!",
                 });
             }
             return Ok(new
             {
-                status = 200,
+                statusCode = 200,
                 message = "User logged in successfully",
                 accessToken = GetAccessToken(restaurant),
                 restaurantData = restaurant

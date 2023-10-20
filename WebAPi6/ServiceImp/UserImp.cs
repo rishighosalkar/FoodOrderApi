@@ -30,13 +30,13 @@ namespace WebAPi6.ServiceImp
             {
                 return NotFound(new
                 {
-                    StatusCode = 404,
+                    statusCode = 404,
                     message = "User not found!"
                 });
             }
             return Ok(new
             {
-                StatusCode = 200,
+                statusCode = 200,
                 user = user
             });
         }
@@ -48,13 +48,15 @@ namespace WebAPi6.ServiceImp
             {
                 return NotFound(new
                 {
-                    status = 404,
+                    statusCode = 404,
                     message = "User not found!",
                 });
             }
+            user.Address = await _dBContext.UserAddresses.FirstOrDefaultAsync(add => add.UserId == user.UserId);
+
             return Ok(new
             {
-                status = 200,
+                statusCode = 200,
                 message = "User logged in successfully",
                 accessToken = GetAccessToken(user),
                 userData = user

@@ -18,5 +18,6 @@ namespace WebAPi6.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Cart> Carts { get; set; }
     }
 }

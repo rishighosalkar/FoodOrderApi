@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPi6.Context;
 
@@ -11,9 +12,11 @@ using WebAPi6.Context;
 namespace WebAPi6.Migrations
 {
     [DbContext(typeof(FoodOrderDBContext))]
-    partial class FoodOrderDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231015152823_CartTableUpdated")]
+    partial class CartTableUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,12 +39,9 @@ namespace WebAPi6.Migrations
                     b.Property<int>("MealId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MealName")
+                    b.Property<string>("Quantity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");

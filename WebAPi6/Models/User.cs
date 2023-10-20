@@ -20,6 +20,7 @@ namespace WebAPi6.Models
         [Required]
         public UserAddress Address { get; set; }
         public List<Order> Orders { get; set; }
+        public List<Cart> Carts { get; set; }
 
     }
 }

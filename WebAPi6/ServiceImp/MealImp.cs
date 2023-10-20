@@ -32,7 +32,7 @@ namespace WebAPi6.ServiceImp
 
             return new JsonResult(new
             {
-                StatusCode = 200,
+                statusCode = 200,
                 message = "Meal successfully added",
                 meal = meal
             });

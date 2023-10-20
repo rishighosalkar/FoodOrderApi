@@ -6,6 +6,7 @@ using WebAPi6.Context;
 using WebAPi6.ServiceImp;
 using WebAPi6.Services;
 using WebAPi6.TokenGenerator;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ builder.Services.AddScoped<IRestaurant, RestaurantImp>();
 builder.Services.AddScoped<IMeal, MealImp>();
 builder.Services.AddScoped<IMealSubcategory, MealSubcategoryImp>();
 builder.Services.AddScoped<IOrder, OrderImp>();
-
+builder.Services.AddScoped<ICart, CartImp>();
 
 builder.Services.Configure<TokenParams>(builder.Configuration.GetSection("JSONWebTokenPramas"));
 

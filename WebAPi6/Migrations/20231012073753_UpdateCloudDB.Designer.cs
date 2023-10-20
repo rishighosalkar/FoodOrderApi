@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPi6.Context;
 
@@ -11,9 +12,11 @@ using WebAPi6.Context;
 namespace WebAPi6.Migrations
 {
     [DbContext(typeof(FoodOrderDBContext))]
-    partial class FoodOrderDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231012073753_UpdateCloudDB")]
+    partial class UpdateCloudDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,42 +24,6 @@ namespace WebAPi6.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebAPi6.Models.Cart", b =>
-                {
-                    b.Property<int>("CartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
-
-                    b.Property<DateTime>("AddedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MealName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartId");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
-                });
 
             modelBuilder.Entity("WebAPi6.Models.Category", b =>
                 {
@@ -327,21 +294,6 @@ namespace WebAPi6.Migrations
                     b.ToTable("UserAddresses");
                 });
 
-            modelBuilder.Entity("WebAPi6.Models.Cart", b =>
-                {
-                    b.HasOne("WebAPi6.Models.Meal", null)
-                        .WithMany("Carts")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebAPi6.Models.User", null)
-                        .WithMany("Carts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebAPi6.Models.Meal", b =>
                 {
                     b.HasOne("WebAPi6.Models.Restaurant", null)
@@ -382,8 +334,6 @@ namespace WebAPi6.Migrations
 
             modelBuilder.Entity("WebAPi6.Models.Meal", b =>
                 {
-                    b.Navigation("Carts");
-
                     b.Navigation("Order");
                 });
 
@@ -399,8 +349,6 @@ namespace WebAPi6.Migrations
                 {
                     b.Navigation("Address")
                         .IsRequired();
-
-                    b.Navigation("Carts");
 
                     b.Navigation("Orders");
                 });
