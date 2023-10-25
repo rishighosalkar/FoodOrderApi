@@ -89,3 +89,5 @@ D:\MyApps\WebAPi6\WebAPi6\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawi
 D:\MyApps\WebAPi6\WebAPi6\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\MyApps\WebAPi6\WebAPi6\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\MyApps\WebAPi6\WebAPi6\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\MyApps\WebAPi6\WebAPi6\bin\Debug\net6.0\CorePush.dll
+D:\MyApps\WebAPi6\WebAPi6\bin\Debug\net6.0\BouncyCastle.Crypto.dll

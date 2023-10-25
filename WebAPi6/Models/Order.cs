@@ -12,10 +12,7 @@ namespace WebAPi6.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         [Required]
-        [ForeignKey("Meal")]
-        public int MealId { get; set; }
-        [Required]
-        public string OrderDate {  get; set; }
+        public DateTime OrderDate {  get; set; }
         [Required]
         public string DeliveryAddress { get; set; }
         [Required]

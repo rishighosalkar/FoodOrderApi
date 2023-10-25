@@ -24,7 +24,6 @@ namespace WebAPi6.Models
         public int RestaurantId { get; set; }
         [ForeignKey("Restaurant")]
         public string RestaurantName { get; set; } = string.Empty;
-        public List<Order> Order { get; set; }
         public List<Cart> Carts { get; set; }
 
     }

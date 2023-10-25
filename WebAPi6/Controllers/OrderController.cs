@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPi6.Helpers;
 using WebAPi6.Models;
 using WebAPi6.Services;
 
@@ -15,17 +16,17 @@ namespace WebAPi6.Controllers
         }
 
         [HttpPost]
-        [Route("create-order")]
-        public async Task<IActionResult> CreateOrder(Order order)
+        [Route("add")]
+        public async Task<IActionResult> Create(CreateOrder createOrder)
         {
-            return await _order.CreateOrder(order);
+            return await _order.CreateOrder(createOrder);
         }
 
         [HttpGet]
-        [Route("get-orders")]
-        public async Task<IActionResult> GetOrders(int customerId)
+        [Route("user")]
+        public async Task<IActionResult> GetOrdersByUserId(int customerId)
         {
-            return await _order.GetOrders(customerId);
+            return await _order.GetOrdersByUserId(customerId);
         }
     }
 }

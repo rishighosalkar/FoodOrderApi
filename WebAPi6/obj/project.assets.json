@@ -46,6 +46,19 @@
           }
         }
       },
+      "CorePush/3.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "Portable.BouncyCastle": "1.9.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/CorePush.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CorePush.dll": {}
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -739,6 +752,19 @@
           }
         }
       },
+      "Portable.BouncyCastle/1.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Stripe.net/43.0.0": {
         "type": "package",
         "dependencies": {
@@ -1359,6 +1385,20 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "CorePush/3.1.1": {
+      "sha512": "hJcLlEIJ7DqyuRHIxBEBiBxTuMQM4ZOir7Pq2qckNvaFb5wRmShF3/a6Q6uoPIudylqMzRkxX8Ryl6kHmeSa1Q==",
+      "type": "package",
+      "path": "corepush/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "corepush.3.1.1.nupkg.sha512",
+        "corepush.nuspec",
+        "lib/netstandard2.0/CorePush.dll"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -2410,6 +2450,21 @@
         "newtonsoft.json.13.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "packageIcon.png"
+      ]
+    },
+    "Portable.BouncyCastle/1.9.0": {
+      "sha512": "eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+      "type": "package",
+      "path": "portable.bouncycastle/1.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/BouncyCastle.Crypto.dll",
+        "lib/net40/BouncyCastle.Crypto.xml",
+        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
+        "portable.bouncycastle.1.9.0.nupkg.sha512",
+        "portable.bouncycastle.nuspec"
       ]
     },
     "Stripe.net/43.0.0": {
@@ -3858,6 +3913,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CorePush >= 3.1.1",
       "JWT >= 10.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.21",
       "Microsoft.EntityFrameworkCore >= 7.0.10",
@@ -3906,6 +3962,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "CorePush": {
+            "target": "Package",
+            "version": "[3.1.1, )"
+          },
           "JWT": {
             "target": "Package",
             "version": "[10.1.0, )"

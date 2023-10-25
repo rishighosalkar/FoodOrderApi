@@ -7,6 +7,10 @@ using WebAPi6.ServiceImp;
 using WebAPi6.Services;
 using WebAPi6.TokenGenerator;
 using Stripe;
+using WebAPi6.Middleware.NotificationService;
+using CorePush.Google;
+using CorePush.Apple;
+using WebAPi6.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +31,13 @@ builder.Services.AddScoped<IMeal, MealImp>();
 builder.Services.AddScoped<IMealSubcategory, MealSubcategoryImp>();
 builder.Services.AddScoped<IOrder, OrderImp>();
 builder.Services.AddScoped<ICart, CartImp>();
+builder.Services.AddScoped<IOrderConfirmation, OrderConfirmationImp>();
+builder.Services.AddTransient<INotificationService, NotificationServiceImp>();
+builder.Services.AddHttpClient<FcmSender>();
+builder.Services.AddHttpClient<ApnSender>();
 
 builder.Services.Configure<TokenParams>(builder.Configuration.GetSection("JSONWebTokenPramas"));
+builder.Services.Configure<FcmNotificationSetting>(builder.Configuration.GetSection("FcmNotification"));
 
 builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

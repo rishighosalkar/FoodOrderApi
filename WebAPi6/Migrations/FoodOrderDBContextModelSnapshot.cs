@@ -40,6 +40,9 @@ namespace WebAPi6.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -126,12 +129,8 @@ namespace WebAPi6.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OrderStatus")
                         .IsRequired()
@@ -149,11 +148,29 @@ namespace WebAPi6.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("MealId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("WebAPi6.Models.OrderConfirmation", b =>
+                {
+                    b.Property<int>("ConfirmationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConfirmationId"));
+
+                    b.Property<string>("ConfirmStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ConfirmationId");
+
+                    b.ToTable("OrderConfirmation");
                 });
 
             modelBuilder.Entity("WebAPi6.Models.Restaurant", b =>
@@ -353,12 +370,6 @@ namespace WebAPi6.Migrations
 
             modelBuilder.Entity("WebAPi6.Models.Order", b =>
                 {
-                    b.HasOne("WebAPi6.Models.Meal", null)
-                        .WithMany("Order")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebAPi6.Models.User", null)
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
@@ -383,8 +394,6 @@ namespace WebAPi6.Migrations
             modelBuilder.Entity("WebAPi6.Models.Meal", b =>
                 {
                     b.Navigation("Carts");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("WebAPi6.Models.Restaurant", b =>

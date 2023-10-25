@@ -22,7 +22,7 @@ namespace WebAPi6.ServiceImp
                     statusCode=409
                 });
             }
-            var existingCartItem = await _foodOrderDBContext.Carts.FirstOrDefaultAsync(c => c.MealId == cart.MealId && c.UserId == cart.UserId);
+            var existingCartItem = await _foodOrderDBContext.Carts.FirstOrDefaultAsync(c => c.MealId == cart.MealId && c.UserId == cart.UserId && cart.OrderId != 0);
 
             if (existingCartItem != null)
             {
@@ -40,7 +40,8 @@ namespace WebAPi6.ServiceImp
             return new JsonResult(new
             {
                 statusCode = 200,
-                message = "Item added successfully to cart"
+                message = "Item added successfully to cart",
+                cartItem = cart
             });
         }
 
@@ -72,7 +73,7 @@ namespace WebAPi6.ServiceImp
 
         public async Task<IActionResult> GetCartByUserId(int userId)
         {
-            var cartItems = await _foodOrderDBContext.Carts.Where(c => c.UserId == userId).ToListAsync();
+            var cartItems = await _foodOrderDBContext.Carts.Where(c => c.UserId == userId && c.OrderId == 0).ToListAsync();
 
             if (cartItems == null)
             {
