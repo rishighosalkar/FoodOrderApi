@@ -57,7 +57,7 @@ stages:
   jobs:
   - deployment: DeployJob
     displayName: 'Deploy Job'
-    environment: 'YourEnvironmentName'  # Replace with your environment name
+    # environment: 'YourEnvironmentName'  # Replace with your environment name
     strategy:
       runOnce:
         deploy:
