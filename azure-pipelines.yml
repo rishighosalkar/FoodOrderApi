@@ -15,31 +15,59 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   serviceConnection: FoodOrderAppServiceConnection
-  appServiceName: FoodOrderApiService
+  webAppName: FoodOrderApiService
 
-steps:
-- task: NuGetToolInstaller@1
+stages:
+- stage: Build
+  displayName: 'Build Stage'
+  jobs:
+  - job: BuildJob
+    displayName: 'Build Job'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '6.x'  # Replace with your desired .NET 6 version
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+    - script: dotnet restore
+      displayName: 'Restore NuGet Packages'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'Build Solution'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    # - task: DotNetCoreCLI@2
+    #   inputs:
+    #     command: 'test'
+    #     projects: '**/*Tests.csproj'
+    #     arguments: '--configuration $(buildConfiguration)'
+    #   displayName: 'Run Tests'
 
-- task: AzureWebApp@1
-  displayName: 'Deploy to App Service'
-  inputs:
-    azureSubscription: '$(serviceConnection)'
-    appName: '$(appServiceName)'
-    appType: 'webApp'
-    package: '$(System.ArtifactsDirectory)/$(Build.BuildId).zip'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        projects: '**/*.csproj'
+        arguments: '-o $(Build.ArtifactStagingDirectory)/publish --configuration $(BuildConfiguration)'
+        zipAfterPublish: true
+      displayName: 'Publish Artifact'
+
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployJob
+    displayName: 'Deploy Job'
+    environment: 'YourEnvironmentName'  # Replace with your environment name
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: '$(serviceConnection)'  # Replace with your Azure service connection name
+              appType: 'webApp'
+              WebAppName: $(webAppName)
+              packageForLinux: '$(Pipeline.Workspace)/drop/*.zip'  # Replace with your actual artifact path
+              enableCustomDeployment: true
+
