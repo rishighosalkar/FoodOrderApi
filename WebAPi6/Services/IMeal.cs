@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPi6.Migrations;
 using WebAPi6.Models;
 
 namespace WebAPi6.Services

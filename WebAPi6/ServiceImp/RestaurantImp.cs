@@ -75,10 +75,10 @@ namespace WebAPi6.ServiceImp
                 });
             }
 
-            foreach(var meal in restaurant.RestaurantMeals)
-            {
-                meal.RestaurantName = restaurant.RestaurantName;
-            }
+            //foreach(var meal in restaurant.RestaurantMeals)
+            //{
+            //    meal.RestaurantName = restaurant.RestaurantName;
+            //}
 
             await _dbContext.AddAsync(restaurant);
 
